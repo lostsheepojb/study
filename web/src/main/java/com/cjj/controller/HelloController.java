@@ -1,10 +1,14 @@
 package com.cjj.controller;
 
 import com.cjj.beans.BaseResponse;
+import com.cjj.beans.enums.ResponseEnum;
+import com.cjj.controller.model.request.HelloArgument;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @Description
@@ -17,10 +21,8 @@ public class HelloController {
 
     @GetMapping("/hello")
     @ApiOperation("hello")
-    public BaseResponse hello() {
-        BaseResponse response = new BaseResponse();
-        response.setCode("200");
-        response.setMsg("OK");
+    public BaseResponse hello(@Valid HelloArgument argument) {
+        BaseResponse response = new BaseResponse(ResponseEnum.OK.getCode(),argument.getName());
         return response;
     }
 }
