@@ -26,7 +26,8 @@
         <lombok.version>1.18.8</lombok.version>
         <swagger2.version>2.9.2</swagger2.version>
         <swagger-ui.version>1.9.0</swagger-ui.version>
-        <knife4j.version>3.0.3</knife4j.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <gson.version>2.9.1</gson.version>
     </properties>
 
     <dependencyManagement>
@@ -38,6 +39,18 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <!-- json util : gson -->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

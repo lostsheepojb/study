@@ -17,6 +17,11 @@
             <artifactId>base-web</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.cjj</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
 
