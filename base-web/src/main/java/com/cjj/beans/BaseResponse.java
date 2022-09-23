@@ -17,9 +17,12 @@ public class BaseResponse {
     private String code;
     @ApiModelProperty("提示")
     private String msg;
+    @ApiModelProperty("返回数据")
+    private Object data;
+
 
     public BaseResponse() {
-
+        this(ResponseEnum.OK);
     }
 
     public BaseResponse(ResponseEnum responseEnum) {
@@ -27,8 +30,10 @@ public class BaseResponse {
         this.msg = responseEnum.getMsg();
     }
 
-    public BaseResponse(String code, String msg) {
-        this.code = code;
-        this.msg = msg;
+    public BaseResponse(Object data) {
+        this(ResponseEnum.OK);
+        this.data = data;
     }
+
+
 }

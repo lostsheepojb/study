@@ -12,10 +12,17 @@
     <artifactId>base-web</artifactId>
 
     <dependencies>
-        <!-- spring boot -->
+
+        <!-- spring boot web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- spring boot web-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
         <!-- spring-boot-starter-validation -->
