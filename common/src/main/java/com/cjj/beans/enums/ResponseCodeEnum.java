@@ -8,7 +8,7 @@ import lombok.Getter;
  * @Date 2022/9/22 16:51
  **/
 @Getter
-public enum ResponseEnum {
+public enum ResponseCodeEnum {
     /**
      * 成功
      */
@@ -22,13 +22,18 @@ public enum ResponseEnum {
     /**
      * 请求参数校验失败
      */
-    ARGUMENT_ERROR("600", "请求参数校验失败");
+    ARGUMENT_ERROR("600", "请求参数校验失败"),
+
+    /**
+     * 业务异常
+     */
+    BUSINESS_ERROR("7000", "业务异常");
 
 
     private String code;
     private String msg;
 
-    ResponseEnum(String code, String msg) {
+    ResponseCodeEnum(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }

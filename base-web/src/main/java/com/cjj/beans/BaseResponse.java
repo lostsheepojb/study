@@ -1,6 +1,6 @@
 package com.cjj.beans;
 
-import com.cjj.beans.enums.ResponseEnum;
+import com.cjj.beans.enums.ResponseCodeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,16 +22,21 @@ public class BaseResponse {
 
 
     public BaseResponse() {
-        this(ResponseEnum.OK);
+        this(ResponseCodeEnum.OK);
     }
 
-    public BaseResponse(ResponseEnum responseEnum) {
+    public BaseResponse(ResponseCodeEnum responseEnum) {
         this.code = responseEnum.getCode();
         this.msg = responseEnum.getMsg();
     }
 
+    public BaseResponse(String code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
     public BaseResponse(Object data) {
-        this(ResponseEnum.OK);
+        this(ResponseCodeEnum.OK);
         this.data = data;
     }
 

@@ -1,7 +1,8 @@
 package com.cjj.config;
 
 import com.cjj.beans.BaseResponse;
-import com.cjj.beans.enums.ResponseEnum;
+import com.cjj.beans.enums.ResponseCodeEnum;
+import com.cjj.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -39,7 +40,7 @@ public class ControllerAdviceConfig {
             msg = result.getFieldErrors().get(0).getDefaultMessage();
             log.info("{}请求参数验证不通过：{}", result.getFieldErrors().get(0).getObjectName(), result.getFieldErrors().get(0).getDefaultMessage());
         }
-        return new BaseResponse(ResponseEnum.ARGUMENT_ERROR.getCode(), msg);
+        return new BaseResponse(ResponseCodeEnum.ARGUMENT_ERROR.getCode(), msg);
     }
 
     /**
@@ -54,7 +55,7 @@ public class ControllerAdviceConfig {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         String msg = fieldErrors.get(0).getField()+":"+fieldErrors.get(0).getDefaultMessage();
         log.info("请求参数验证不通过：{}", msg);
-        return new BaseResponse(ResponseEnum.ARGUMENT_ERROR.getCode(), msg);
+        return new BaseResponse(ResponseCodeEnum.ARGUMENT_ERROR.getCode());
     }
 
     /**
@@ -68,7 +69,20 @@ public class ControllerAdviceConfig {
     public BaseResponse defaultErrorHandler(ConstraintViolationException e) {
         String msg = e.getConstraintViolations().stream().map(cv -> cv.getPropertyPath() + ":" + cv.getMessage()).collect(Collectors.joining(","));
         log.info("请求参数验证不通过：{}", msg);
-        return new BaseResponse(ResponseEnum.ARGUMENT_ERROR.getCode(), msg);
+        return new BaseResponse(ResponseCodeEnum.ARGUMENT_ERROR.getCode());
+    }
+
+    /**
+     * 统一处理业务异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = BusinessException.class)
+    @ResponseBody
+    public BaseResponse defaultErrorHandler(BusinessException e) {
+        log.warn("业务异常信息：" + e.getMessage());
+        e.printStackTrace();
+        return new BaseResponse(e.getCode(), e.getMsg());
     }
 
 
@@ -81,9 +95,9 @@ public class ControllerAdviceConfig {
     @ResponseBody
     public BaseResponse defaultErrorHandler(Exception e) {
         e.printStackTrace();
-        log.info("异常信息：" + e.getMessage());
+        log.error("异常信息：" + e.getMessage());
         String msg = e.getMessage();
-        return new BaseResponse(ResponseEnum.FAIL.getCode(), msg);
+        return new BaseResponse(ResponseCodeEnum.FAIL.getCode(), msg);
     }
 
 }

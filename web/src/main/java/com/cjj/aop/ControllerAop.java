@@ -2,7 +2,8 @@ package com.cjj.aop;
 
 import com.cjj.annotation.RepeatRequest;
 import com.cjj.beans.TokenArgument;
-import com.cjj.exception.RepeatRequestException;
+import com.cjj.beans.enums.BusinessExceptionEnum;
+import com.cjj.exception.BusinessException;
 import com.cjj.utils.TokenMapUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -38,6 +39,7 @@ public class ControllerAop {
 
     /**
      * 前置通知，检查请求是否重复提交，token存放在服务器中
+     *
      * @param joinPoint
      */
     @Before("repeatRequestPointcut() && controllerMethodPointcut()")
@@ -56,16 +58,16 @@ public class ControllerAop {
                         String requestToken = tokenArgument.getToken();
                         Integer count = TokenMapUtils.requestToken.get(requestToken);
                         if (count == null) {
-                            throw new RepeatRequestException("token不存在");
+                            throw new BusinessException(BusinessExceptionEnum.TOKEN_NOT_FOUND);
                         } else if (count > 0) {
-                            throw new RepeatRequestException("不可重复请求");
+                            throw new BusinessException(BusinessExceptionEnum.REPEAT_REQUEST);
                         } else {
                             TokenMapUtils.requestToken.put(requestToken, count + 1);
                             return;
                         }
                     }
                 }
-                throw new RepeatRequestException("未找到接口参数类型："+TokenArgument.class.getName());
+                throw new BusinessException(BusinessExceptionEnum.ARGUMENT_NOT_FOUND.getCode(), "未找到接口参数类型：" + TokenArgument.class.getName());
             }
         }
     }
