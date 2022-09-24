@@ -2,3 +2,17 @@ server:
   port: 9000
   servlet:
     context-path: /web
+
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: redis2022
+    database: 0
+    timeout: 5000
+    jedis:
+      pool:
+        max-wait: 10000
+        max-active: 100
+        max-idle: 20
+        min-idle: 0
