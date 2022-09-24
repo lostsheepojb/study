@@ -187,7 +187,7 @@ public class Java8StreamDemo {
      */
     public static void join() {
         String result = list.stream().map(student -> student.getId().toString()).collect(Collectors.joining(","));
-        System.out.println("将所有的学生用逗号拼接起来：");
+        System.out.println("将所有的学生id用逗号拼接起来：");
         System.out.println(result);
     }
 
