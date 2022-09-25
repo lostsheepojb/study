@@ -4,12 +4,13 @@ import com.cjj.annotation.RepeatRequest;
 import com.cjj.beans.TokenArgument;
 import com.cjj.beans.enums.BusinessExceptionEnum;
 import com.cjj.exception.BusinessException;
-import com.cjj.utils.TokenMapUtils;
+import com.cjj.utils.RedisUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -22,6 +23,9 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class ControllerAop {
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 切入点：增强有RepeatRequest注解的方法
@@ -56,13 +60,15 @@ public class ControllerAop {
                     if (o.getClass() == TokenArgument.class) {
                         TokenArgument tokenArgument = (TokenArgument) o;
                         String requestToken = tokenArgument.getToken();
-                        Integer count = TokenMapUtils.requestToken.get(requestToken);
+                        //Integer count = TokenUtil.requestToken.get(requestToken);
+                        Integer count = redisUtil.get(requestToken) == null ? null : Integer.valueOf(redisUtil.get(requestToken).toString());
                         if (count == null) {
                             throw new BusinessException(BusinessExceptionEnum.TOKEN_NOT_FOUND);
                         } else if (count > 0) {
                             throw new BusinessException(BusinessExceptionEnum.REPEAT_REQUEST);
                         } else {
-                            TokenMapUtils.requestToken.put(requestToken, count + 1);
+                            //TokenUtil.requestToken.put(requestToken, count + 1);
+                            redisUtil.incr(requestToken, 1L);
                             return;
                         }
                     }

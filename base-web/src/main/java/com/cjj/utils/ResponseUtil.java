@@ -3,11 +3,11 @@ package com.cjj.utils;
 import com.cjj.beans.BaseResponse;
 
 /**
- * @Description
- * @Author cjj
- * @Date 2022/9/22 16:42
+ * @description
+ * @author cjj
+ * @date 2022/9/22 16:42
  **/
-public class ResponseUtils {
+public class ResponseUtil {
 
     public BaseResponse ok() {
         BaseResponse response = new BaseResponse();
