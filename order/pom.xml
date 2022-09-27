@@ -12,10 +12,11 @@
     <artifactId>order</artifactId>
 
     <dependencies>
-        <!-- spring boot -->
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>com.cjj</groupId>
+            <artifactId>base-web</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <!-- nacos-discovery -->

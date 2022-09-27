@@ -1,14 +1,13 @@
 server:
-  port: 9001
+  port: 9010
   servlet:
     context-path: /order
 
 spring:
+  application:
+    name: order-server
   cloud:
     nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
+      server-addr: 127.0.0.1:8848
     inetutils:
       ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
-  application:
-    name: order

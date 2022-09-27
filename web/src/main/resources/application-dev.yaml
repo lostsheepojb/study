@@ -16,3 +16,11 @@ spring:
         max-active: 100
         max-idle: 20
         min-idle: 0
+  application:
+    name: web-server
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+    inetutils:
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+
