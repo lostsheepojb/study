@@ -53,9 +53,9 @@ public class ControllerAdviceConfig {
     @ResponseBody
     public BaseResponse defaultErrorHandler(BindException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        String msg = fieldErrors.get(0).getField()+":"+fieldErrors.get(0).getDefaultMessage();
+        String msg = fieldErrors.get(0).getField() + ":" + fieldErrors.get(0).getDefaultMessage();
         log.info("请求参数验证不通过：{}", msg);
-        return new BaseResponse(ResponseCodeEnum.ARGUMENT_ERROR.getCode());
+        return new BaseResponse(ResponseCodeEnum.ARGUMENT_ERROR.getCode(), msg);
     }
 
     /**
@@ -69,11 +69,12 @@ public class ControllerAdviceConfig {
     public BaseResponse defaultErrorHandler(ConstraintViolationException e) {
         String msg = e.getConstraintViolations().stream().map(cv -> cv.getPropertyPath() + ":" + cv.getMessage()).collect(Collectors.joining(","));
         log.info("请求参数验证不通过：{}", msg);
-        return new BaseResponse(ResponseCodeEnum.ARGUMENT_ERROR.getCode());
+        return new BaseResponse(ResponseCodeEnum.ARGUMENT_ERROR.getCode(), msg);
     }
 
     /**
      * 统一处理业务异常
+     *
      * @param e
      * @return
      */
@@ -88,6 +89,7 @@ public class ControllerAdviceConfig {
 
     /**
      * 统一处理一般异常
+     *
      * @param e
      * @return
      */

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date 2022/9/27 10:55
  * @description
  **/
-@FeignClient(value = "order-server", path = "/order/hello")
+@FeignClient(value = "order-service", path = "/order/hello")
 public interface TestFeignService {
 
     @GetMapping("/test")
