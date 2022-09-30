@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author cjj
  * @date 2022/9/27 9:31
@@ -17,8 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/test")
-    public String test(@RequestParam("name") String name) {
-        log.info("invoked name = " + name);
+    public String test(@RequestParam("name") String name, HttpServletRequest request, HttpServletResponse response) {
+        log.info("网关路由过滤器测试（请求头添加）：route-id=" + request.getHeader("route-id"));
+        log.info("网关默认过滤器测试（请求头添加）：my-header=" + request.getHeader("my-header"));
         return "hello " + name;
     }
 }

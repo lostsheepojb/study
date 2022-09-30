@@ -1,0 +1,30 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    # 网关配置
+    gateway:
+      discovery:
+        locator:
+          enabled: true # gateway 可以从 nacos 发现微服务
+      # 路由配置，路由：接受请求并匹配目的地发送请求的角色
+      routes:
+        - id: order-service-route  # 路由 id，一个微服务对应一个路由
+          uri: lb://order-service  # 表示从 nacos 中按照名称获取微服务,并遵循负载均衡策略，order-service 对应用户微服务应用名
+          predicates:              # 断言：匹配访问路径的规则，如果匹配不上，则返回404
+            - Path=/order/**       # 使用路径匹配，匹配上，则访问上面定义得微服务
+          filters:                 # 过滤器，修改请求信息和响应信息
+            # - StripPrefix=1        # 将url中的/order-api去掉
+            - AddRequestHeader=route-id,order-service-route # 添加请求头，格式：key,value
+            # - PrefixPath=/order    # 添加url的前缀，对应微服务需要配置context-path
+      # 默认过滤器
+      default-filters:
+        - AddRequestHeader=my-header,gateway # 添加请求头，格式：key,value
+
+# 网关过滤器执行顺序，先看排序order权重，权重越小，越先执行，权重相同时，路由过滤器->默认过滤器->全局过滤器
