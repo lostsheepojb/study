@@ -1,4 +1,4 @@
-package com.cjj.gateway.filter;
+package com.cjj.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import org.springframework.web.util.pattern.PathPatternParser;
  * @description 跨域请求过滤器配置
  **/
 @Configuration
-public class CorsConfigFilter {
+public class CorsConfig {
     @Bean
     public CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();

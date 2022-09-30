@@ -7,11 +7,14 @@ import com.cjj.controller.model.request.HelloArgument;
 import com.cjj.service.TestFeignService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -21,6 +24,7 @@ import javax.validation.Valid;
  **/
 @RestController
 @Api(tags = "你好，世界")
+@Slf4j
 public class HelloController {
 
     @Autowired
@@ -28,9 +32,11 @@ public class HelloController {
 
     @GetMapping("/hello")
     @ApiOperation("hello")
-    public BaseResponse hello(@Valid HelloArgument argument) {
-        BaseResponse response = new BaseResponse(argument.getName());
-        return response;
+    public BaseResponse hello(@Valid HelloArgument argument, HttpServletRequest request, HttpServletResponse response) {
+        log.info("网关路由过滤器测试（请求头添加）：route-id=" + request.getHeader("route-id"));
+        log.info("网关默认过滤器测试（请求头添加）：my-header=" + request.getHeader("my-header"));
+        BaseResponse baseResponse = new BaseResponse(argument.getName());
+        return baseResponse;
     }
 
     @GetMapping("/feign/test")

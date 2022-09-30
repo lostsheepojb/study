@@ -22,7 +22,7 @@ public enum ResponseCodeEnum {
     /**
      * 请求参数校验失败
      */
-    ARGUMENT_ERROR("600", "请求参数校验失败"),
+    ARGUMENT_ERROR("400", "请求参数校验失败"),
 
     /**
      * 业务异常

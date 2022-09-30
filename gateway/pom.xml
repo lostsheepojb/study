@@ -12,6 +12,13 @@
     <artifactId>gateway</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.cjj</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <!--  网关-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

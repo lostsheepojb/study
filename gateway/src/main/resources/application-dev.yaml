@@ -23,8 +23,16 @@ spring:
             # - StripPrefix=1        # 将url中的/order-api去掉
             - AddRequestHeader=route-id,order-service-route # 添加请求头，格式：key,value
             # - PrefixPath=/order    # 添加url的前缀，对应微服务需要配置context-path
+        - id: web-service-route
+          uri: lb://web-service
+          predicates:
+            - Path=/web/**
+          filters:
+            # - StripPrefix=1
+            - AddRequestHeader=route-id,web-service-route
+            # - PrefixPath=/order
       # 默认过滤器
       default-filters:
         - AddRequestHeader=my-header,gateway # 添加请求头，格式：key,value
 
-# 网关过滤器执行顺序，先看排序order权重，权重越小，越先执行，权重相同时，路由过滤器->默认过滤器->全局过滤器
+# 网关过滤器执行顺序，先看排序order权重，权重越小，越先执行，权重相同时，默认过滤器->路由过滤器->全局过滤器
