@@ -33,6 +33,9 @@
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <gson.version>2.9.1</gson.version>
         <redisson.version>3.15.6</redisson.version>
+        <mysql-connector.version>8.0.29</mysql-connector.version>
+        <mybatis.version>2.2.2</mybatis.version>
+        <connection-pool-druid.version>1.2.11</connection-pool-druid.version>
     </properties>
 
     <dependencyManagement>
@@ -80,7 +83,24 @@
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
-
+            <!--  【数据库】mysql driver  -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+            <!--【数据库】数据库连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${connection-pool-druid.version}</version>
+            </dependency>
+            <!--【数据库】持久层框架 mybatis-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
